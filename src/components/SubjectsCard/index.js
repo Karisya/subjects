@@ -2,7 +2,8 @@ import {Card, Button, Select, Input} from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import { BookOutlined } from '@ant-design/icons';
 import "./style.css"
-import { useState } from "react";
+import { useState} from "react";
+import { DownCircleOutlined } from "@ant-design/icons";
 
 const { TextArea } = Input;
 
@@ -20,11 +21,9 @@ const SubjectsCard=({subject, teachers})=>{
     laboratoryTeacher:"vacancy",
     practic:"vacancy",
     seminar:"vacancy",
-    controlTeacher:"vacancy",
+    control:"vacancy",
     additionalInfo:""
   })
-
-  console.log(teachersState)
 
   const handleTeachersChoice=(key,value)=>{
     setTeachersState(prev=>({...prev, [key]:value}))
@@ -33,6 +32,21 @@ const SubjectsCard=({subject, teachers})=>{
   const handleAdditionalInfo=(key,value)=>{
     setTeachersState(prev=>({...prev, additionalInfo:value}))
   }
+const applyToAll = () => {
+  const selected = teachersState.lectures; 
+  setTeachersState(prev => {
+    const newState = { ...prev };
+    rows.forEach(r => {
+      if (subject[`${r.key}Hours`] !== "0") {
+        newState[r.key] = selected;
+      }
+    });
+    if (subject.exam || subject.offset) {
+      newState.control = selected;
+    }
+    return newState;
+  });
+};
 
     return (
         <Card 
@@ -56,15 +70,20 @@ const SubjectsCard=({subject, teachers})=>{
                             <div>{it.hours}</div>
                             <div>
                                 <Select
+                                defaultValue={"vacancy"}
                                     disabled={it.hours==='0'}
                                     style={{ width: 250}}
-                                    defaultValue="vacancy"
+                                    value={teachersState[it.key]}
                                     onChange={(value)=>handleTeachersChoice(it.key, value)}
                                     options={[
                                         {value:"vacancy", label:"Вакансия"},
                                         ...teachers.map(t=>({value:`${t.id}`, label:`${t.name}`}))
                                     ]}
                                 />
+                                {it.key==="lectures" && (
+                                    <Button 
+                                        icon={<DownCircleOutlined />}
+                                        onClick={applyToAll} />)}
                             </div>
                         </div>
                     ))}
@@ -77,8 +96,8 @@ const SubjectsCard=({subject, teachers})=>{
                         <div>
                             <Select
                                 style={{ width: 250 }}
-                                defaultValue="vacancy"
-                                onChange={(value) => handleTeachersChoice("controlTeacher", value)}
+                                value={teachersState.control}
+                                onChange={(value) => handleTeachersChoice("control", value)}
                                 options={[
                                     {value:"vacancy", label:"Вакансия"},
                                     ...teachers.map(t=>({value:`${t.id}`, label:`${t.name}`}))
