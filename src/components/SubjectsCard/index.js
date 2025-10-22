@@ -30,6 +30,10 @@ const SubjectsCard=({subject, teachers})=>{
     setTeachersState(prev=>({...prev, [key]:value}))
   }
 
+  const handleAdditionalInfo=(key,value)=>{
+    setTeachersState(prev=>({...prev, additionalInfo:value}))
+  }
+
     return (
         <Card 
         className="subjectCard"
@@ -74,6 +78,7 @@ const SubjectsCard=({subject, teachers})=>{
                             <Select
                                 style={{ width: 250 }}
                                 defaultValue="vacancy"
+                                onChange={(value) => handleTeachersChoice("controlTeacher", value)}
                                 options={[
                                     {value:"vacancy", label:"Вакансия"},
                                     ...teachers.map(t=>({value:`${t.id}`, label:`${t.name}`}))
@@ -84,7 +89,10 @@ const SubjectsCard=({subject, teachers})=>{
                     <div className="subjectCard__note">
                         <label>Примечание<br/><span>для составления расписания</span></label>
                         <span></span>
-                        <TextArea  rows="2"/>
+                        <TextArea
+                            value={teachersState.additionalInfo}
+                            onChange={(e) => handleAdditionalInfo(e.target.value)}
+                            rows="2"/>
                     </div>
                 </div>
         </Card>
