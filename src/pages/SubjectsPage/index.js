@@ -24,7 +24,7 @@ const SubjectsPage=()=>{
     return(
         <div className="subjects">
         {subjects.map(subject=>(
-            <SubjectsCard key={subject.uniqueId} subject={subject}/>
+            <SubjectsCard key={subject.uniqueId} subject={subject} teachers={teachers}/>
         ))}
         </div>
     )

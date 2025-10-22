@@ -5,7 +5,7 @@ import "./style.css"
 
 const { TextArea } = Input;
 
-const SubjectsCard=({subject})=>{
+const SubjectsCard=({subject, teachers})=>{
 
     const rows = [
     { key: "lectures", title: "Лекции", hours: subject.lecturesHours },
@@ -36,9 +36,11 @@ const SubjectsCard=({subject})=>{
                             <div>{it.hours}</div>
                             <div>
                                 <Select
+                                    style={{ width: 250 }}
                                     defaultValue="vacancy"
                                     options={[
-                                        {value:"vacancy", label:"Вакансия"}
+                                        {value:"vacancy", label:"Вакансия"},
+                                        ...teachers.map(t=>({value:`${t.id}`, label:`${t.name}`}))
                                     ]}
                                 />
                             </div>
@@ -52,9 +54,11 @@ const SubjectsCard=({subject})=>{
                         <span></span>
                         <div>
                             <Select
+                                style={{ width: 250 }}
                                 defaultValue="vacancy"
                                 options={[
-                                    {value:"vacancy", label:"Вакансия"}
+                                    {value:"vacancy", label:"Вакансия"},
+                                    ...teachers.map(t=>({value:`${t.id}`, label:`${t.name}`}))
                                 ]}
                             />
                         </div>
