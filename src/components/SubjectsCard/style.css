@@ -1,0 +1,40 @@
+.subjectCard{
+    border-radius: 20px;
+    border: 1px #aeaeae solid;
+}
+
+.subjectCard__title{
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.subjectCard__info{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.subjectCard__header{
+    text-align: center;
+    display: grid;
+    grid-template-columns: 2fr 1fr 2fr;
+    border-bottom: 2px solid #ddd;
+    padding: 6px 0;
+    background: #fafafa;
+}
+
+.subjectCard__rows{
+    text-align: center;
+    display: grid;
+    grid-template-columns: 2fr 1fr 2fr;
+    border-bottom: 2px solid #ddd;
+    padding: 6px 0;
+}
+
+.subjectCard__note{
+    text-align: center;
+    display: grid;
+    grid-template-columns: 2fr 1fr 2fr;
+    border-bottom: 2px solid #ddd;
+    padding: 10px 0;
+
+}
