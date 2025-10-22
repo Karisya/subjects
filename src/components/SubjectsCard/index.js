@@ -2,6 +2,7 @@ import {Card, Button, Select, Input} from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import { BookOutlined } from '@ant-design/icons';
 import "./style.css"
+import { useState } from "react";
 
 const { TextArea } = Input;
 
@@ -13,6 +14,21 @@ const SubjectsCard=({subject, teachers})=>{
     { key: "practic", title: "Практические", hours: subject.practicHours },
     { key: "seminar", title: "Семинарские", hours: subject.seminarHours },
   ];
+
+  const [teachersState, setTeachersState]=useState({
+    lecturesTeacher:"vacancy",
+    laboratoryTeacher:"vacancy",
+    practic:"vacancy",
+    seminar:"vacancy",
+    controlTeacher:"vacancy",
+    additionalInfo:""
+  })
+
+  console.log(teachersState)
+
+  const handleTeachersChoice=(key,value)=>{
+    setTeachersState(prev=>({...prev, [key]:value}))
+  }
 
     return (
         <Card 
@@ -36,8 +52,10 @@ const SubjectsCard=({subject, teachers})=>{
                             <div>{it.hours}</div>
                             <div>
                                 <Select
-                                    style={{ width: 250 }}
+                                    disabled={it.hours==='0'}
+                                    style={{ width: 250}}
                                     defaultValue="vacancy"
+                                    onChange={(value)=>handleTeachersChoice(it.key, value)}
                                     options={[
                                         {value:"vacancy", label:"Вакансия"},
                                         ...teachers.map(t=>({value:`${t.id}`, label:`${t.name}`}))
