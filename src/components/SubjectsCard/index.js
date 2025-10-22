@@ -1,23 +1,21 @@
-import { useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { fetchSubject } from "../../redux/slices/subjectThunk"
-
-const SubjectsCard=()=>{
-
-    const dispatch = useDispatch()
-
-    useEffect(()=>{
-        dispatch(fetchSubject())
-    },[dispatch])
-    const subjects = useSelector((state)=>state.subjects)
-    console.log("предметы:", subjects)
-
-    if(!subjects.length){
-        return <p>Загрузка данных...</p>
-    }
+const SubjectsCard=({subject})=>{
 
     return (
-        <div>
+        <div className="subjectCard">
+                <div>
+                    <h2>{subject.subjectName}</h2>
+                    <div>
+                        <p>Группа: {subject.groupName}</p>
+                        <p>Количество курсантов: {subject.studentsNumber}</p>
+                        <p>Курс: {subject.course}</p>
+                        <p>Семестр: {subject.semestr}</p>
+                    </div>
+                    <div>
+                        <div>Занятие</div>
+                        <div>Часы</div>
+                        <div><span>Преподаватель</span><button>+</button></div>
+                    </div>
+                </div>
         </div>
     )
 }
