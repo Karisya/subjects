@@ -36,5 +36,12 @@
     grid-template-columns: 2fr 1fr 2fr;
     border-bottom: 2px solid #ddd;
     padding: 10px 0;
+}
 
+.subjectCard__control{
+    text-align: center;
+    display: grid;
+    grid-template-columns: 2fr 1fr 2fr;
+    border-bottom: 2px solid #ddd;
+    padding: 6px 0;
 }

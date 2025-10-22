@@ -44,6 +44,21 @@ const SubjectsCard=({subject})=>{
                             </div>
                         </div>
                     ))}
+                    <div className="subjectCard__control">
+                        <div>
+                        {subject.exam&&<p>Экзамен</p>}
+                        {subject.offset&&<p>Зачет</p>}
+                        </div>
+                        <span></span>
+                        <div>
+                            <Select
+                                defaultValue="vacancy"
+                                options={[
+                                    {value:"vacancy", label:"Вакансия"}
+                                ]}
+                            />
+                        </div>
+                    </div>
                     <div className="subjectCard__note">
                         <label>Примечание<br/><span>для составления расписания</span></label>
                         <span></span>
