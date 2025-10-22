@@ -1,3 +1,10 @@
+import {Card, Button, Select, Input} from "antd";
+import { PlusOutlined } from "@ant-design/icons";
+import { BookOutlined } from '@ant-design/icons';
+import "./style.css"
+
+const { TextArea } = Input;
+
 const SubjectsCard=({subject})=>{
 
     const rows = [
@@ -8,37 +15,42 @@ const SubjectsCard=({subject})=>{
   ];
 
     return (
-        <div className="subjectCard">
+        <Card 
+        className="subjectCard"
+        title={<h2 className="subjectCard__title"><BookOutlined/>{subject.subjectName}</h2>}>
                 <div>
-                    <h2>{subject.subjectName}</h2>
-                    <div>
+                    <div className="subjectCard__info">
                         <p>Группа: {subject.groupName}</p>
-                        <p>Количество курсантов: {subject.studentsNumber}</p>
                         <p>Курс: {subject.course}</p>
+                        <p>Количество курсантов: {subject.studentsNumber}</p>
                         <p>Семестр: {subject.semestr}</p>
                     </div>
-                    <div>
+                    <div className="subjectCard__header">
                         <div>Занятие</div>
                         <div>Часы</div>
-                        <div><span>Преподаватель</span><button>+</button></div>
+                        <div><span>Преподаватель</span><Button icon={<PlusOutlined />}/></div>
                     </div>
                     {rows.map(it=>(
-                        <div>
+                        <div className="subjectCard__rows">
                             <div>{it.title}</div>
                             <div>{it.hours}</div>
                             <div>
-                                <select>
-                                    <option>Вакансия</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label>Примечание<br/><span>для составления расписания</span></label>
-                                <textarea  rows="2"/>
+                                <Select
+                                    defaultValue="vacancy"
+                                    options={[
+                                        {value:"vacancy", label:"Вакансия"}
+                                    ]}
+                                />
                             </div>
                         </div>
                     ))}
+                    <div className="subjectCard__note">
+                        <label>Примечание<br/><span>для составления расписания</span></label>
+                        <span></span>
+                        <TextArea  rows="2"/>
+                    </div>
                 </div>
-        </div>
+        </Card>
     )
 }
 
