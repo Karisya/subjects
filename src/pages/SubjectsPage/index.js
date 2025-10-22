@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux"
 import { fetchSubject } from "../../redux/slices/subjectThunk"
 import SubjectsCard from "../../components/SubjectsCard"
+import { useEffect } from "react"
 
 const SubjectsPage=()=>{
     const dispatch = useDispatch()
@@ -18,7 +19,7 @@ const SubjectsPage=()=>{
     return(
         <div>
         {subjects.map(subject=>(
-            <SubjectsCard subject={subject}/>
+            <SubjectsCard key={subject.uniqueId} subject={subject}/>
         ))}
         </div>
     )
