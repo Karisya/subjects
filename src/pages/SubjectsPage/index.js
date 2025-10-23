@@ -14,9 +14,7 @@ const SubjectsPage=()=>{
         },[dispatch])
         const subjects = useSelector((state)=>state.subjects)
         const teachers = useSelector((state)=>state.teachers)
-        console.log("предметы:", subjects)
-        console.log("преподаватели:", teachers)
-    
+
         if(!subjects.length){
             return <p>Загрузка данных...</p>
         }
@@ -24,7 +22,7 @@ const SubjectsPage=()=>{
     return(
         <div className="subjects">
         {subjects.map(subject=>(
-            <SubjectsCard key={subject.uniqueId} subject={subject} teachers={teachers}/>
+            <SubjectsCard key={subject.uniqueId} subject={subject}/>
         ))}
         </div>
     )

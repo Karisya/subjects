@@ -8,7 +8,7 @@ import "./style.css";
 
 const { TextArea } = Input;
 
-const SubjectsCard = ({ subject, teachers }) => {
+const SubjectsCard = ({ subject}) => {
 const dispatch = useDispatch();
 const cardId = `${subject.subjectName}_${subject.course}_${subject.groupName}`;
 const cardState = useSelector((state) => state.teachersState[cardId]);
@@ -45,7 +45,7 @@ const cardState = useSelector((state) => state.teachersState[cardId]);
         <p>Количество курсантов: {subject.studentsNumber}</p>
         <p>Семестр: {subject.semestr}</p>
       </div>
-      <Subgroups cardId={cardId} subject={subject} rows={rows} teachers={teachers} />
+      <Subgroups cardId={cardId} subject={subject} rows={rows} />
 
       <div className="subjectCard__note">
         <label>Примечание<br /><span>для составления расписания</span></label>
