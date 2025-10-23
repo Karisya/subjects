@@ -26,8 +26,8 @@ const cardState = useSelector((state) => state.teachersState[cardId]);
     { key: "seminar", title: "Семинарские", hours: subject.seminarHours },
   ];
 
-  const handleAdditionalInfo = (e, i) => {
-    dispatch(setAdditionalInfo({cardId,subgroupIndex: i,value: e.target.value,}));
+  const handleAdditionalInfo = (e) => {
+    dispatch(setAdditionalInfo({ cardId, value: e.target.value }));
   };
 
   return (
@@ -45,17 +45,18 @@ const cardState = useSelector((state) => state.teachersState[cardId]);
         <p>Количество курсантов: {subject.studentsNumber}</p>
         <p>Семестр: {subject.semestr}</p>
       </div>
-      <Subgroups cardId={cardId} subject={subject}
-        rows={rows} teachers={teachers}
-      />
+      <Subgroups cardId={cardId} subject={subject} rows={rows} teachers={teachers} />
+
       <div className="subjectCard__note">
         <label>Примечание<br /><span>для составления расписания</span></label>
-        <span></span>
-        {cardState.subgroups.map((sg, i) => (
-          <TextArea key={i} value={sg.additionalInfo}
-            onChange={(e) => handleAdditionalInfo(e, i)}
-            rows={2} style={{ width: 220, marginRight: 8 }}/>
-        ))}
+        <TextArea
+          value={cardState.additionalInfo || ""}
+          onChange={(e) =>
+            handleAdditionalInfo(e)
+          }
+          rows={2}
+          style={{ width: "100%" }}
+        />
       </div>
     </Card>
   );

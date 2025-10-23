@@ -1,15 +1,21 @@
 import { Button, Select } from "antd";
 import {PlusOutlined,DeleteOutlined,DownCircleOutlined,} from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
-import {addSubgroup,removeSubgroup,setTeacher,applyTeacherToAll,} from "../../redux/slices/teachersStateSlice";
+import {addSubgroup,removeSubgroup,setTeacher,applyTeacherToAll,setSubgroupStudentsNumber} from "../../redux/slices/teachersStateSlice";
 
 const Subgroups = ({ cardId, subject, rows, teachers }) => {
-  const dispatch = useDispatch();
-  const cardState = useSelector((state) => state.teachersState[cardId]);
-  const subgroups = cardState?.subgroups || [];
-  if (!cardState || !cardState.subgroups) return null;
+    const dispatch = useDispatch();
+    const cardState = useSelector((state) => state.teachersState[cardId]);
+    const subgroups = cardState?.subgroups || [];
+    if (!cardState || !cardState.subgroups) return null;
 
-  const handleAddSubgroup = () => dispatch(addSubgroup({ cardId }));
+  if (!subgroups || subgroups.length === 0) return null;
+
+  const handleAddSubgroup = () => {
+    if (subgroups.length < 2) {
+      dispatch(addSubgroup({ cardId, totalStudents: subject.studentsNumber }));
+    }
+  };
   const handleRemoveSubgroup = (index) =>
     dispatch(removeSubgroup({ cardId, index }));
 
@@ -21,32 +27,24 @@ const Subgroups = ({ cardId, subject, rows, teachers }) => {
     dispatch(applyTeacherToAll({ cardId, subject, selected }));
   };
 
+  
+
   return (
     <>
       <div className="subjectCard__header subgroups__header">
         <div>Занятие</div>
         <div>Часы</div>
-        {subgroups.length === 1 ? (
-          <div className="subgroup__header-cell">
-            <span>Преподаватель</span>
-            <Button icon={<PlusOutlined />} onClick={handleAddSubgroup} />
+        {subgroups.map((_, i) => (
+          <div key={i} className="subgroup__header-cell">
+            <span>Подгруппа {i + 1}</span>
+            {i === 0 && subgroups.length < 2 && (
+              <Button icon={<PlusOutlined />} onClick={handleAddSubgroup} />
+            )}
+            {i === 1 && (
+              <Button icon={<DeleteOutlined />} onClick={() => handleRemoveSubgroup(i)} danger />
+            )}
           </div>
-        ) : (
-          subgroups.map((_, i) => (
-            <div key={i} className="subgroup__header-cell">
-              <span>Подгруппа {i + 1}</span>
-              {i === 0 ? (
-                <Button icon={<PlusOutlined />} onClick={handleAddSubgroup} />
-              ) : (
-                <Button
-                  icon={<DeleteOutlined />}
-                  onClick={() => handleRemoveSubgroup(i)}
-                  danger
-                />
-              )}
-            </div>
-          ))
-        )}
+        ))}
       </div>
       {rows.map((row) => (
         <div className="subjectCard__rows subgroups__row" key={row.key}>
@@ -77,10 +75,46 @@ const Subgroups = ({ cardId, subject, rows, teachers }) => {
                   style={{ marginLeft: 4 }}
                 />
               )}
+              
             </div>
           ))}
         </div>
       ))}
+
+      <div className="subjectCard__rows subgroups__row">
+  <div></div>
+  {cardState.subgroups.length > 1 && (
+  <div className="subjectCard__rows subgroups__row">
+    <div>Количество человек</div>
+    <div></div>
+     {cardState.subgroups.length > 1 && (
+    <div className="subjectCard__rows subgroups__row">
+      <div></div>
+      {cardState.subgroups.map((sg, i) => (
+    <div key={i} className="subgroup__cell">
+      <input
+        type="number"
+        value={sg.studentsNumber === 0 ? 0 : (sg.studentsNumber ?? "")}
+        onChange={(e) =>
+          dispatch(
+            setSubgroupStudentsNumber({
+              cardId,
+              subgroupIndex: i,
+              value: e.target.value,
+            })
+          )
+        }
+        min={0}
+        max={subject.studentsNumber}
+        style={{ width: 60 }}
+      />
+    </div>
+  ))}
+    </div>
+  )}
+  </div>
+)}
+</div>
     </>
   );
 };

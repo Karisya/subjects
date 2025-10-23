@@ -17,23 +17,31 @@ const teachersStateSlice = createSlice({
               practic: "vacancy",
               seminar: "vacancy",
               control: "vacancy",
-              additionalInfo: "",
             },
-          ],
+        ],
+        additionalInfo: "",
         };
       }
     },
     addSubgroup: (state, action) => {
-      const { cardId } = action.payload;
-      state[cardId].subgroups.push({
-        lectures: "vacancy",
-        laboratory: "vacancy",
-        practic: "vacancy",
-        seminar: "vacancy",
-        control: "vacancy",
-        additionalInfo: "",
-      });
-    },
+  const { cardId, totalStudents } = action.payload;
+  const subgroups = state[cardId].subgroups;
+
+  if (subgroups.length >= 2) return;
+
+  const half = Math.floor(totalStudents / 2);
+  state[cardId].totalStudents = totalStudents;
+
+  subgroups[0].studentsNumber = half;
+  subgroups.push({
+    lectures: "vacancy",
+    laboratory: "vacancy",
+    practic: "vacancy",
+    seminar: "vacancy",
+    control: "vacancy",
+    studentsNumber: totalStudents - half,
+  });
+},
     removeSubgroup: (state, action) => {
       const { cardId, index } = action.payload;
       if (state[cardId]?.subgroups?.length > 1) {
@@ -59,9 +67,30 @@ const teachersStateSlice = createSlice({
   }));
 },
     setAdditionalInfo: (state, action) => {
-      const { cardId, subgroupIndex, value } = action.payload;
-      state[cardId].subgroups[subgroupIndex].additionalInfo = value;
-    },
+  const { cardId, value } = action.payload;
+  state[cardId].additionalInfo = value; 
+},
+    setSubgroupStudentsNumber: (state, action) => {
+  const { cardId, subgroupIndex, value } = action.payload;
+  const subgroups = state[cardId].subgroups;
+  const totalStudents = state[cardId].totalStudents || 0;
+
+  if (subgroups.length !== 2) {
+    subgroups[subgroupIndex].studentsNumber = Number(value);
+    return;
+  }
+
+  const total = totalStudents || subgroups.reduce((sum, sg) => sum + (sg.studentsNumber || 0), 0);
+  let newValue = Number(value);
+
+  if (isNaN(newValue) || newValue < 0) newValue = 0;
+  if (newValue > total) newValue = total;
+
+  subgroups[subgroupIndex].studentsNumber = newValue;
+
+  const otherIndex = subgroupIndex === 0 ? 1 : 0;
+  subgroups[otherIndex].studentsNumber = total - newValue;
+},
   },
 });
 
@@ -72,6 +101,7 @@ export const {
   setTeacher,
   applyTeacherToAll,
   setAdditionalInfo,
+  setSubgroupStudentsNumber,
 } = teachersStateSlice.actions;
 
 export default teachersStateSlice.reducer;
