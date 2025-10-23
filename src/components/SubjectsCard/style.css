@@ -1,47 +1,69 @@
-.subjectCard{
-    border-radius: 20px;
-    border: 1px #aeaeae solid;
-}
-
-.subjectCard__title{
-    font-size: 18px;
-    font-weight: 600;
+.subjectCard {
+  width: 100%; 
+  max-width: 600px;
+  min-width: 300px;
+  box-sizing: border-box;
+  overflow: hidden;
+  padding: 16px;
 }
 
 .subjectCard__info{
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr 1fr;
+  margin: 4px 0;
+  font-size: 14px;
 }
 
-.subjectCard__header{
-    text-align: center;
-    display: grid;
-    grid-template-columns: 2fr 1fr 3fr;
-    border-bottom: 2px solid #ddd;
-    padding: 6px 0;
-    background: #fafafa;
+.subjectCard__title {
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.subjectCard__rows{
-    text-align: center;
-    display: grid;
-    grid-template-columns: 2fr 1fr 3fr;
-    border-bottom: 2px solid #ddd;
-    padding: 6px 0;
+.subjectCard__note {
+  margin-top: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
-.subjectCard__note{
-    text-align: center;
-    display: grid;
-    grid-template-columns: 2fr 1fr 3fr;
-    border-bottom: 2px solid #ddd;
-    padding: 10px 0;
+.subjectCard__note textarea {
+  flex: 1 1 100px; 
+  max-width: 220px;
 }
 
-.subjectCard__control{
-    text-align: center;
-    display: grid;
-    grid-template-columns: 2fr 1fr 3fr;
-    border-bottom: 2px solid #ddd;
-    padding: 6px 0;
+.subgroups__header,
+.subgroups__row {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 8px;
 }
+
+.subgroup__header-cell,
+.subgroup__cell {
+  flex: 2 1 0;
+    justify-content: center;
+
+  min-width: 80px; 
+}
+
+.subgroup__cell {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.subgroup__cell .ant-select {
+
+  width: 100%;
+  min-width: 80px;
+}
+
+.subgroups__row > div:first-child,
+.subgroups__header > div:first-child {
+  flex: 1; 
+}
+
+
