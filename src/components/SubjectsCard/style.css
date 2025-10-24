@@ -1,17 +1,18 @@
 .subjectCard {
-  width: 100%; 
+  width: 100%;
   max-width: 600px;
   min-width: 300px;
   box-sizing: border-box;
   overflow: hidden;
   padding: 16px;
+  border: 1px solid #e5eaf0;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(22, 119, 255, 0.05);
+  transition: all 0.3s ease;
 }
 
-.subjectCard__info{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-  margin: 4px 0;
-  font-size: 14px;
+.subjectCard:hover {
+  box-shadow: 0 4px 12px rgba(13, 139, 76, 0.592);
 }
 
 .subjectCard__title {
@@ -19,6 +20,20 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  font-weight: 600;
+}
+
+.ant-card-head-title{
+  background-color: rgb(193, 241, 214);
+  padding: 5px 10px;
+}
+
+.subjectCard__info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: 6px 0;
+  font-size: 14px;
+  color: #444;
 }
 
 .subjectCard__note {
@@ -28,42 +43,21 @@
   gap: 8px;
 }
 
+.subjectCard__note label {
+  font-size: 13px;
+  color: #666;
+}
+
 .subjectCard__note textarea {
-  flex: 1 1 100px; 
+  flex: 1 1 100px;
   max-width: 220px;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  background: #f9fbff;
+  transition: all 0.2s ease;
 }
 
-.subgroups__header,
-.subgroups__row {
-  display: flex;
-  flex-wrap: nowrap;
-  align-items: center;
-  gap: 8px;
+.subjectCard__note textarea:focus {
+  background-color: rgb(193, 241, 214);
+  box-shadow: 0 0 4px rgba(158, 248, 186, 0.25);
 }
-
-.subgroup__header-cell,
-.subgroup__cell {
-  flex: 2 1 0;
-    justify-content: center;
-
-  min-width: 80px; 
-}
-
-.subgroup__cell {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.subgroup__cell .ant-select {
-
-  width: 100%;
-  min-width: 80px;
-}
-
-.subgroups__row > div:first-child,
-.subgroups__header > div:first-child {
-  flex: 1; 
-}
-
-
