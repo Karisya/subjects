@@ -1,6 +1,7 @@
 import {PlusOutlined,DeleteOutlined} from "@ant-design/icons";
 import { Button} from "antd";
 import { useSelector } from "react-redux";
+import "./style.css"
 
 const SubgroupHeader=({onAdd, onRemove, cardId})=>{
 

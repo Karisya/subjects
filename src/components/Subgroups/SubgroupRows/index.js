@@ -1,6 +1,7 @@
 import { Button, Select } from "antd";
 import { DownCircleOutlined } from "@ant-design/icons";
 import { useSelector } from "react-redux";
+import "./style.css"
 
 const SubgroupRows=({onTeacherChange, onApplyAll, cardId})=>{
     
@@ -10,12 +11,19 @@ const subject = useSelector((state) =>
     state.subjects.find((s) => `${s.subjectName}_${s.course}_${s.groupName}` === cardId)
 );
 
-const LESSON_ROWS = [
-  { key: "lectures", title: "Лекции" },
-  { key: "laboratory", title: "Лабораторные" },
-  { key: "practic", title: "Практические" },
-  { key: "seminar", title: "Семинарские" },
-];
+ const LESSON_ROWS = [
+    { key: "lectures", title: "Лекции" },
+    { key: "laboratory", title: "Лабораторные" },
+    { key: "practic", title: "Практические" },
+    { key: "seminar", title: "Семинарские" },
+  ];
+
+   if (subject.exam || subject.offset) {
+    LESSON_ROWS.push({
+      key: "control",
+      title: subject.exam ? "Экзамен" : "Зачёт",
+    });
+  }
 
   const rows = LESSON_ROWS.map((r) => ({
     ...r,

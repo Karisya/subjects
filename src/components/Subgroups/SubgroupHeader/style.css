@@ -1,0 +1,42 @@
+.subgroups__header {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 0;
+  border-bottom: 1px solid #e5eaf0;
+  background: linear-gradient(90deg, #f6f9ff, #ffffff);
+}
+
+.subgroup__header-cell {
+  flex: 2 1 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 80px;
+  gap: 8px;
+}
+
+.subgroup__header-cell span {
+  color: #1a1a1a;
+  font-weight: 600;
+}
+
+.subgroup__header-cell button {
+  border-radius: 6px;
+  background: #e7f7ef;
+  border: 1px solid #b3e5c1;
+  color: #007d46;
+  transition: all 0.2s ease;
+}
+
+.subgroup__header-cell button:hover {
+  background: #b3e5c1;
+  color: #004d2a;
+}
+
+.subgroups__header > div:first-child {
+  flex: 1;
+  color: #050505;
+  font-weight: 600;
+}

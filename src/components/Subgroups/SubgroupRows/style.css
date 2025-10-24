@@ -1,0 +1,28 @@
+.subgroups__row {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0;
+  border-bottom: 1px solid #f7f7f7;
+}
+
+.subgroups__row > div:first-child {
+  flex: 1;
+  font-weight: 500;
+  color: #444;
+}
+
+.subgroup__cell {
+  flex: 2 1 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 80px;
+  gap: 4px;
+}
+
+.subgroup__cell .ant-select {
+  width: 100%;
+  min-width: 80px;
+}

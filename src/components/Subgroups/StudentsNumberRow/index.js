@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import "./style.css"
 
 const StudentsNumberRow=({onStudentChange, totalStudents, cardId})=>{
 
