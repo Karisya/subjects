@@ -1,5 +1,14 @@
+.subjects-page{
+    padding: 20px;
+}
+
 .subjects{
     display: flex;
     gap: 20px;
     flex-wrap: wrap;
+}
+
+.ant-btn{
+  background-color: rgb(193, 241, 214);
+  color: #000;
 }
