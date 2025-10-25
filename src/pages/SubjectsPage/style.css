@@ -3,6 +3,7 @@
 }
 
 .subjects{
+    justify-content: center;
     margin-bottom: 30px;
     display: flex;
     gap: 20px;
