@@ -15,7 +15,7 @@ const SubgroupHeader=({onAdd, onRemove, cardId})=>{
         <div>Часы</div>
         {subgroups.map((_, i) => (
           <div key={i} className="subgroup__header-cell">
-            <span>Подгруппа {i + 1}</span>
+            {subgroups.length === 1?<span>Преподаватель</span>:<span>Подгруппа {i + 1}</span>}
             {i === 0 && subgroups.length < 2 && (
               <Button icon={<PlusOutlined />} onClick={onAdd} />
             )}
