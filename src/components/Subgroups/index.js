@@ -28,7 +28,7 @@ const Subgroups = ({cardId}) => {
 
   const handleApplyAll = (index) => {
     const selected = cardState.subgroups[index].lectures;
-    dispatch(applyTeacherToAll({ cardId, subject, selected }));
+    dispatch(applyTeacherToAll({ cardId, subject, selected, subgroupIndex:index }));
   };
 
    const handleStudentsChange = (index, value) =>

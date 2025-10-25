@@ -53,18 +53,17 @@ const teachersStateSlice = createSlice({
       state[cardId].subgroups[subgroupIndex][key] = value;
     },
     applyTeacherToAll: (state, action) => {
-  const { cardId, subject, selected } = action.payload;
+  const { cardId, subject, selected, subgroupIndex } = action.payload;
   const card = state[cardId];
   if (!card) return;
+  const subgroup = card.subgroups[subgroupIndex];
 
-  card.subgroups = card.subgroups.map((sg) => ({
-    ...sg,
-    lectures: subject.lecturesHours !== "0" ? selected : sg.lectures,
-    laboratory: subject.laboratoryHours !== "0" ? selected : sg.laboratory,
-    practic: subject.practicHours !== "0" ? selected : sg.practic,
-    seminar: subject.seminarHours !== "0" ? selected : sg.seminar,
-    control: selected,
-  }));
+  if (!subgroup) return;
+  if (subject.lecturesHours !== "0") subgroup.lectures = selected;
+  if (subject.laboratoryHours !== "0") subgroup.laboratory = selected;
+  if (subject.practicHours !== "0") subgroup.practic = selected;
+  if (subject.seminarHours !== "0") subgroup.seminar = selected;
+  subgroup.control = selected;
 },
     setAdditionalInfo: (state, action) => {
   const { cardId, value } = action.payload;
