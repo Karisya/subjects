@@ -24,7 +24,7 @@
 }
 
 .ant-card-head-title{
-  background-color: rgb(193, 241, 214);
+  background-color: #f2fbf6;
   padding: 5px 10px;
 }
 
@@ -53,11 +53,31 @@
   max-width: 220px;
   border-radius: 8px;
   border: 1px solid #e0e0e0;
-  background: #f9fbff;
+  background: #f2fbf6;
   transition: all 0.2s ease;
 }
 
 .subjectCard__note textarea:focus {
-  background-color: rgb(193, 241, 214);
+  background-color:#f2fbf6;
   box-shadow: 0 0 4px rgba(158, 248, 186, 0.25);
 }
+
+
+@media(max-width:650px){
+.subjectCard {
+  padding: 10px;
+}
+.subjectCard__title {
+  font-size: 16px;
+  word-break: break-word;    
+  white-space: normal;   
+}
+.ant-card-body{
+  padding: 5px !important;
+}
+  .subjectCard__info p{
+    margin: 3px;
+  }
+}
+
+

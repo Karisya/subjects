@@ -26,3 +26,41 @@
   width: 100%;
   min-width: 80px;
 }
+
+@media(max-width:650px){
+    .subgroup__cell {
+  flex: 1 1 0;
+  gap: 4px;
+}
+.subgroup__cell .ant-select {
+    max-width: 100px;
+}
+}
+
+@media (max-width: 500px) {
+  .subgroup__cell .ant-select{
+    max-width: 100%;
+}
+
+  .subgroups__row {
+    display: flex;
+    flex-direction: column;
+    background: #f9fdfb;
+    padding: 8px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    border: 1px solid #e5eaf0;
+  }
+
+  .subgroups__row > div:first-child {
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: #007d46;
+  }
+
+  .subgroups__row:hover {
+  background: #f2fbf6;
+  transition: background 0.2s ease;
+}
+
+}

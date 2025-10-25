@@ -5,7 +5,8 @@
   gap: 8px;
   padding: 8px 0;
   border-bottom: 1px solid #e5eaf0;
-  background: linear-gradient(90deg, #f6f9ff, #ffffff);
+  background: #f2fbf6;
+  margin-bottom: 10px;
 }
 
 .subgroup__header-cell {
@@ -24,14 +25,14 @@
 
 .subgroup__header-cell button {
   border-radius: 6px;
-  background: #e7f7ef;
+  background: #f2fbf6;
   border: 1px solid #b3e5c1;
   color: #007d46;
   transition: all 0.2s ease;
 }
 
 .subgroup__header-cell button:hover {
-  background: #b3e5c1;
+  background: #f2fbf6;
   color: #004d2a;
 }
 
@@ -39,4 +40,14 @@
   flex: 1;
   color: #050505;
   font-weight: 600;
+}
+
+
+@media(max-width:500px){
+ .subgroups__header > div:first-child {
+    display: none;
+}   
+ .subgroups__header > div:nth-child(2) {
+    display: none;
+}   
 }
