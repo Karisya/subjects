@@ -1,9 +1,18 @@
+import { useCallback } from "react";
 import { useSelector } from "react-redux";
 import "./style.css";
 
 const StudentsNumberRow = ({ onStudentChange, totalStudents, cardId }) => {
   const cardState = useSelector((state) => state.teachersState[cardId]);
   const subgroups = cardState?.subgroups || [];
+
+  const handleChange = useCallback(
+    (index, value) => {
+      onStudentChange(index, value);
+    },
+    [onStudentChange],
+  );
+
   if (subgroups.length < 2) return null;
 
   return (
@@ -15,7 +24,7 @@ const StudentsNumberRow = ({ onStudentChange, totalStudents, cardId }) => {
           <input
             type="number"
             value={sg.studentsNumber === 0 ? 0 : (sg.studentsNumber ?? "")}
-            onChange={(e) => onStudentChange(i, e.target.value)}
+            onChange={(e) => handleChange(i, e.target.value)}
             min={0}
             max={totalStudents}
             style={{ width: 60 }}

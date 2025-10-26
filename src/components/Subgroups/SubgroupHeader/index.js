@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import { PlusOutlined, DeleteOutlined } from "@ant-design/icons";
 import { Button } from "antd";
 import { useSelector } from "react-redux";
@@ -6,6 +7,13 @@ import "./style.css";
 const SubgroupHeader = ({ onAdd, onRemove, cardId }) => {
   const cardState = useSelector((state) => state.teachersState[cardId]);
   const subgroups = cardState?.subgroups || [];
+
+  const handleRemove = useCallback(
+    (index) => {
+      onRemove(index);
+    },
+    [onRemove],
+  );
 
   return (
     <>
@@ -25,7 +33,7 @@ const SubgroupHeader = ({ onAdd, onRemove, cardId }) => {
             {i === 1 && (
               <Button
                 icon={<DeleteOutlined />}
-                onClick={() => onRemove(i)}
+                onClick={() => handleRemove(i)}
                 danger
               />
             )}

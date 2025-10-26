@@ -1,6 +1,6 @@
+import { useEffect, useCallback } from "react";
 import { Card, Input } from "antd";
 import { BookOutlined } from "@ant-design/icons";
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
@@ -21,6 +21,13 @@ const SubjectsCard = ({ subject }) => {
     dispatch(initializeCardState({ cardId }));
   }, [dispatch, cardId]);
 
+  const handleAdditionalInfo = useCallback(
+    (e) => {
+      dispatch(setAdditionalInfo({ cardId, value: e.target.value }));
+    },
+    [dispatch, cardId],
+  );
+
   if (!cardState || !cardState.subgroups) return null;
 
   const rows = [
@@ -33,10 +40,6 @@ const SubjectsCard = ({ subject }) => {
     { key: "practic", title: "Практические", hours: subject.practicHours },
     { key: "seminar", title: "Семинарские", hours: subject.seminarHours },
   ];
-
-  const handleAdditionalInfo = (e) => {
-    dispatch(setAdditionalInfo({ cardId, value: e.target.value }));
-  };
 
   return (
     <Card

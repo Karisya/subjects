@@ -1,3 +1,4 @@
+import React, { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
@@ -21,34 +22,50 @@ const Subgroups = ({ cardId }) => {
         `${subj.subjectName}_${subj.course}_${subj.groupName}` === cardId,
     ),
   );
-  if (!cardState || !subject) return null;
 
-  const handleAddSubgroup = () => {
+  const handleAddSubgroup = useCallback(() => {
     if (subgroups.length < 2) {
       dispatch(addSubgroup({ cardId, totalStudents: subject.studentsNumber }));
     }
-  };
-  const handleRemoveSubgroup = (index) =>
-    dispatch(removeSubgroup({ cardId, index }));
+  }, [dispatch, cardId, subgroups.length, subject.studentsNumber]);
 
-  const handleTeacherChange = (index, key, value) =>
-    dispatch(setTeacher({ cardId, subgroupIndex: index, key, value }));
+  const handleRemoveSubgroup = useCallback(
+    (index) => dispatch(removeSubgroup({ cardId, index })),
+    [dispatch, cardId],
+  );
 
-  const handleApplyAll = (index) => {
-    const selected = cardState.subgroups[index].lectures;
-    dispatch(
-      applyTeacherToAll({ cardId, subject, selected, subgroupIndex: index }),
-    );
-  };
+  const handleTeacherChange = useCallback(
+    (index, key, value) =>
+      dispatch(setTeacher({ cardId, subgroupIndex: index, key, value })),
+    [dispatch, cardId],
+  );
 
-  const handleStudentsChange = (index, value) =>
-    dispatch(
-      setSubgroupStudentsNumber({
-        cardId,
-        subgroupIndex: index,
-        value,
-      }),
-    );
+  const handleApplyAll = useCallback(
+    (index) => {
+      const selected = cardState.subgroups[index]?.lectures;
+      if (selected) {
+        dispatch(
+          applyTeacherToAll({
+            cardId,
+            subject,
+            selected,
+            subgroupIndex: index,
+          }),
+        );
+      }
+    },
+    [dispatch, cardId, cardState.subgroups, subject],
+  );
+
+  const handleStudentsChange = useCallback(
+    (index, value) =>
+      dispatch(
+        setSubgroupStudentsNumber({ cardId, subgroupIndex: index, value }),
+      ),
+    [dispatch, cardId],
+  );
+
+  if (!cardState || !subject) return null;
 
   return (
     <>
@@ -71,4 +88,4 @@ const Subgroups = ({ cardId }) => {
   );
 };
 
-export default Subgroups;
+export default React.memo(Subgroups);

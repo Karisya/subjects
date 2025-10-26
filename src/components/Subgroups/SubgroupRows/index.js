@@ -1,3 +1,4 @@
+import { useCallback, useMemo } from "react";
 import { Button, Select } from "antd";
 import { DownCircleOutlined } from "@ant-design/icons";
 import { useSelector } from "react-redux";
@@ -12,24 +13,36 @@ const SubgroupRows = ({ onTeacherChange, onApplyAll, cardId }) => {
     ),
   );
 
-  const LESSON_ROWS = [
-    { key: "lectures", title: "Лекции" },
-    { key: "laboratory", title: "Лабораторные" },
-    { key: "practic", title: "Практические" },
-    { key: "seminar", title: "Семинарские" },
-  ];
+  const rows = useMemo(() => {
+    const lessonRows = [
+      { key: "lectures", title: "Лекции" },
+      { key: "laboratory", title: "Лабораторные" },
+      { key: "practic", title: "Практические" },
+      { key: "seminar", title: "Семинарские" },
+    ];
 
-  if (subject.exam || subject.offset) {
-    LESSON_ROWS.push({
-      key: "control",
-      title: subject.exam ? "Экзамен" : "Зачёт",
-    });
-  }
+    if (subject.exam || subject.offset) {
+      lessonRows.push({
+        key: "control",
+        title: subject.exam ? "Экзамен" : "Зачёт",
+      });
+    }
 
-  const rows = LESSON_ROWS.map((r) => ({
-    ...r,
-    hours: subject[`${r.key}Hours`],
-  }));
+    return lessonRows.map((r) => ({
+      ...r,
+      hours: subject[`${r.key}Hours`],
+    }));
+  }, [subject]);
+
+  const handleTeacherChange = useCallback(
+    (index, key, value) => onTeacherChange(index, key, value),
+    [onTeacherChange],
+  );
+
+  const handleApplyAll = useCallback(
+    (index) => onApplyAll(index),
+    [onApplyAll],
+  );
 
   return (
     <>
@@ -43,7 +56,7 @@ const SubgroupRows = ({ onTeacherChange, onApplyAll, cardId }) => {
                 style={{ width: 180 }}
                 disabled={row.hours === "0"}
                 value={sg[row.key]}
-                onChange={(value) => onTeacherChange(i, row.key, value)}
+                onChange={(value) => handleTeacherChange(i, row.key, value)}
                 options={[
                   { value: "vacancy", label: "Вакансия" },
                   ...teachers.map((t) => ({
@@ -55,7 +68,7 @@ const SubgroupRows = ({ onTeacherChange, onApplyAll, cardId }) => {
               {row.key === "lectures" && (
                 <Button
                   icon={<DownCircleOutlined />}
-                  onClick={() => onApplyAll(i)}
+                  onClick={() => handleApplyAll(i)}
                   size="small"
                   style={{ marginLeft: 4 }}
                 />
