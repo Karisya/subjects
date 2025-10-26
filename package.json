@@ -1,6 +1,7 @@
 {
   "name": "subjects-app",
   "version": "0.1.0",
+  "homepage": "https://Karisya.github.io/subjects/",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^2.9.1",
@@ -26,7 +27,12 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "proxy": "node proxy-server.js"
+    "proxy": "node proxy-server.js",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "lint": "eslint src --ext .js,.jsx",
+    "lint:fix": "eslint src --ext .js,.jsx --fix",
+    "format": "prettier --write ."
   },
   "eslintConfig": {
     "extends": [
@@ -45,5 +51,13 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "prettier": "^3.6.2"
   }
 }

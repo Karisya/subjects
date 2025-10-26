@@ -1,32 +1,39 @@
-import {PlusOutlined,DeleteOutlined} from "@ant-design/icons";
-import { Button} from "antd";
+import { PlusOutlined, DeleteOutlined } from "@ant-design/icons";
+import { Button } from "antd";
 import { useSelector } from "react-redux";
-import "./style.css"
+import "./style.css";
 
-const SubgroupHeader=({onAdd, onRemove, cardId})=>{
+const SubgroupHeader = ({ onAdd, onRemove, cardId }) => {
+  const cardState = useSelector((state) => state.teachersState[cardId]);
+  const subgroups = cardState?.subgroups || [];
 
-     const cardState = useSelector((state) => state.teachersState[cardId]);
-    const subgroups = cardState?.subgroups || [];
-
-    return(
-        <>
-        <div className="subjectCard__header subgroups__header">
+  return (
+    <>
+      <div className="subjectCard__header subgroups__header">
         <div>Занятие</div>
         <div>Часы</div>
         {subgroups.map((_, i) => (
           <div key={i} className="subgroup__header-cell">
-            {subgroups.length === 1?<span>Преподаватель</span>:<span>Подгруппа {i + 1}</span>}
+            {subgroups.length === 1 ? (
+              <span>Преподаватель</span>
+            ) : (
+              <span>Подгруппа {i + 1}</span>
+            )}
             {i === 0 && subgroups.length < 2 && (
               <Button icon={<PlusOutlined />} onClick={onAdd} />
             )}
             {i === 1 && (
-              <Button icon={<DeleteOutlined />} onClick={() => onRemove(i)} danger />
+              <Button
+                icon={<DeleteOutlined />}
+                onClick={() => onRemove(i)}
+                danger
+              />
             )}
           </div>
         ))}
       </div>
-        </>
-    )
-}
+    </>
+  );
+};
 
-export default SubgroupHeader
+export default SubgroupHeader;

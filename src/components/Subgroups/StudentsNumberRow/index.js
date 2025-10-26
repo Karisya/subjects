@@ -1,11 +1,10 @@
 import { useSelector } from "react-redux";
-import "./style.css"
+import "./style.css";
 
-const StudentsNumberRow=({onStudentChange, totalStudents, cardId})=>{
-
-    const cardState = useSelector((state) => state.teachersState[cardId]);
-    const subgroups = cardState?.subgroups || [];
-   if (subgroups.length < 2) return null;
+const StudentsNumberRow = ({ onStudentChange, totalStudents, cardId }) => {
+  const cardState = useSelector((state) => state.teachersState[cardId]);
+  const subgroups = cardState?.subgroups || [];
+  if (subgroups.length < 2) return null;
 
   return (
     <div className="subjectCard__rows subgroups__row">
@@ -15,7 +14,7 @@ const StudentsNumberRow=({onStudentChange, totalStudents, cardId})=>{
         <div key={i} className="subgroup__cell">
           <input
             type="number"
-            value={sg.studentsNumber === 0 ? 0 : sg.studentsNumber ?? ""}
+            value={sg.studentsNumber === 0 ? 0 : (sg.studentsNumber ?? "")}
             onChange={(e) => onStudentChange(i, e.target.value)}
             min={0}
             max={totalStudents}
@@ -25,6 +24,6 @@ const StudentsNumberRow=({onStudentChange, totalStudents, cardId})=>{
       ))}
     </div>
   );
-}
+};
 
-export default StudentsNumberRow
+export default StudentsNumberRow;

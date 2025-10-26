@@ -13,7 +13,10 @@ export const saveThunk = createAsyncThunk(
 
       console.log("📦 Отправляем данные на сервер:", payload);
 
-      const response = await axios.post("http://localhost:4000/api/save", payload);
+      const response = await axios.post(
+        "http://localhost:4000/api/save",
+        payload,
+      );
       console.log("Ответ сервера:", response.data);
 
       return response.data;
@@ -21,5 +24,5 @@ export const saveThunk = createAsyncThunk(
       console.error("Ошибка при сохранении:", error);
       return rejectWithValue(error.message);
     }
-  }
+  },
 );

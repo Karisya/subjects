@@ -2,16 +2,20 @@ import { Card, Input } from "antd";
 import { BookOutlined } from "@ant-design/icons";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {initializeCardState,setAdditionalInfo,} from "../../redux/slices/teachersStateSlice";
+
+import {
+  initializeCardState,
+  setAdditionalInfo,
+} from "../../redux/slices/teachersStateSlice";
 import Subgroups from "../Subgroups";
 import "./style.css";
 
 const { TextArea } = Input;
 
-const SubjectsCard = ({ subject}) => {
-const dispatch = useDispatch();
-const cardId = `${subject.subjectName}_${subject.course}_${subject.groupName}`;
-const cardState = useSelector((state) => state.teachersState[cardId]);
+const SubjectsCard = ({ subject }) => {
+  const dispatch = useDispatch();
+  const cardId = `${subject.subjectName}_${subject.course}_${subject.groupName}`;
+  const cardState = useSelector((state) => state.teachersState[cardId]);
 
   useEffect(() => {
     dispatch(initializeCardState({ cardId }));
@@ -21,7 +25,11 @@ const cardState = useSelector((state) => state.teachersState[cardId]);
 
   const rows = [
     { key: "lectures", title: "Лекции", hours: subject.lecturesHours },
-    { key: "laboratory", title: "Лабораторные", hours: subject.laboratoryHours },
+    {
+      key: "laboratory",
+      title: "Лабораторные",
+      hours: subject.laboratoryHours,
+    },
     { key: "practic", title: "Практические", hours: subject.practicHours },
     { key: "seminar", title: "Семинарские", hours: subject.seminarHours },
   ];
@@ -48,12 +56,15 @@ const cardState = useSelector((state) => state.teachersState[cardId]);
       <Subgroups cardId={cardId} subject={subject} rows={rows} />
 
       <div className="subjectCard__note">
-        <label>Примечание<br /><span>для составления расписания</span></label>
+        <label htmlFor="additionalInfo">
+          Примечание
+          <br />
+          <span>для составления расписания</span>
+        </label>
         <TextArea
+          id="additionalInfo"
           value={cardState.additionalInfo || ""}
-          onChange={(e) =>
-            handleAdditionalInfo(e)
-          }
+          onChange={(e) => handleAdditionalInfo(e)}
           rows={2}
           style={{ width: "100%" }}
         />
